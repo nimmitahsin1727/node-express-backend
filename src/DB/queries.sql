@@ -27,6 +27,15 @@ VALUES ('Tania', 'tania.world@gmail.com', 30, 'UK', false);
 INSERT INTO users (name, email, age, country, isDisable) 
 VALUES ('Taia', 'taia.world@hotmail.com', 30, 'KSA', false);
 
+INSERT INTO users (name, email, age, country, isDisable) 
+VALUES 
+  ('Ayesha', 'ayesha@mail.com', 27, 'Bangladesh', false),
+  ('Rahim', 'rahim123@gmail.com', 35, 'India', true),
+  ('Sara', 'sara.uk@gmail.com', 29, 'UK', false),
+  ('Mehedi', 'mehedi.ca@gmail.com', 31, 'Canada', false),
+  ('Nadia', 'nadia123@gmail.com', 26, 'Australia', true);
+
+
 -- Drop users table
 DROP TABLE users;
 
@@ -46,4 +55,32 @@ UPDATE users SET email = 'alamariful1727@gmail.com' where id = 6;
 
 -- Delete users
 DELETE from users WHERE id = 5;
+
+SELECT * FROM users WHERE country = 'Bangladesh';
+
+SELECT * FROM users WHERE name = 'Ayesha';
+
+SELECT * FROM users WHERE name ILIKE '%ay%';  -- PostgreSQL: ILIKE is case-insensitive
+
+SELECT * FROM users WHERE email = 'rahim123@gmail.com';
+
+SELECT * FROM users
+ORDER BY id
+LIMIT 10 OFFSET 0;  -- Page 1 (rows 1-10)
+
+SELECT * FROM users
+ORDER BY id
+LIMIT 10 OFFSET 2;  -- Page 2 (rows 11-20)
+
+
+SELECT * FROM users
+WHERE country = 'Canada'
+ORDER BY id
+LIMIT 5 OFFSET 0;  -- First 5 users from Canada
+
+
+
+
+
+
 

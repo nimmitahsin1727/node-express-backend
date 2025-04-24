@@ -16,10 +16,10 @@ isDisable - boolean
 
 - create users table ✅
 - insert single user ✅
-- insert multiple users
+- insert multiple users ✅
 - get single user ✅
 - get user list ✅
-- filter/search by country, name, email
-- pagination
+- filter/search by country, name, email ✅
+- pagination ✅
 - update single user ✅
 - delete user ✅
