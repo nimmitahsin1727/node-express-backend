@@ -4,6 +4,7 @@ import log from './logger';
 import morgan from 'morgan';
 import { createUser, getUsers } from './controllers/users';
 import Database from './DB';
+import format from 'pg-format';
 
 const port = config.get<number>('port');
 const host = config.get<string>('host');
@@ -27,6 +28,17 @@ app.post('/users', createUser);
 
 app.get('/users', getUsers);
 
+app.get('/users/:id', async (req, res) => {
+	const { id } = req.params;
+	const formattedId = parseInt(id, 10);
+	const data = await Database.executeQuery(format('select * from users where id = %s', formattedId));
+
+	res.status(200).json({
+		id,
+		data,
+	});
+});
+
 app.use((req, res) => {
 	res.status(404).json({
 		message: 'API not found',
@@ -35,6 +47,4 @@ app.use((req, res) => {
 
 app.listen(port, host, () => {
 	log.info(`Server is running at http://${host}:${port}`);
-
-	Database.getInstance();
 });
