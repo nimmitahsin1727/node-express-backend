@@ -3,6 +3,7 @@ import config from 'config';
 import log from './logger';
 import morgan from 'morgan';
 import { createUser, getUsers } from './controllers/users';
+import Database from './DB';
 
 const port = config.get<number>('port');
 const host = config.get<string>('host');
@@ -34,4 +35,6 @@ app.use((req, res) => {
 
 app.listen(port, host, () => {
 	log.info(`Server is running at http://${host}:${port}`);
+
+	Database.getInstance();
 });
