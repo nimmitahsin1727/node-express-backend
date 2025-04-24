@@ -1,8 +1,8 @@
 import express, { json } from 'express';
 import config from 'config';
 import log from './logger';
-import mockedUsers from './mock/mockedUsers';
 import morgan from 'morgan';
+import { createUser, getUsers } from './controllers/users';
 
 const port = config.get<number>('port');
 const host = config.get<string>('host');
@@ -22,24 +22,9 @@ app.get('/test', (req, res) => {
 	});
 });
 
-app.get('/users', (req, res) => {
-	const emailQuery = (req.query.email as string) || null;
-	const filteredUsers = mockedUsers.filter((user) => {
-		if (emailQuery) {
-			// Check if the email contains the query string (case insensitive)
-			const email = user.email.toLowerCase();
-			const query = emailQuery.toLowerCase();
-			return email.includes(query);
-		} else {
-			// If no email query, return all users
-			return true;
-		}
-	});
-	res.status(200).json({
-		data: filteredUsers,
-		count: filteredUsers.length,
-	});
-});
+app.post('/users', createUser);
+
+app.get('/users', getUsers);
 
 app.use((req, res) => {
 	res.status(404).json({
